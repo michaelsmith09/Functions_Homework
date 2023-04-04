@@ -40,7 +40,7 @@ Write a one line function (give a name of your choice) with an implicit return t
 // CODE HERE
 const findParam = (parameter1,parameter2) => {console.log(`The first parameter is ${parameter1}. The second parameter is ${parameter2}.`)}
 
-findParam(toast, fries)
+findParam('toast', 'fries')
 // INVOKE THE FUNCTION HERE. THE PARAMETERS TAKE ANY DATATYPE.
 
 
@@ -51,10 +51,12 @@ Then, outside of the greeting function, invoke the greeting function, passing in
 */
 
 // CODE 'GREETING FUNCTION' HERE
-
+const greeting = (firstName, lastName, cb) =>{
+    cb(firstName + ' ' + lastName);
+}
 
 // INVOKE 'GREETING FUNCTION' HERE
-
+greeting('Mike', 'Smith', (fullName) => console.log(`Hello, my full name is ${fullName}`))
 
 ////////// PROBLEM 4 //////////
 
@@ -69,12 +71,19 @@ Write a function called 'pricesPlusTax' that takes 2 params: an array ('prices' 
 */
 
 // CODE HERE
-
+const pricesPlusTax = (arr, cb) => {
+    for(let i=0; i<arr.length; i++) {
+        totalCost.push(arr[i] + (arr[i] * 0.20))
+    }
+ cb(totalCost)
+}
 
 /* 
 Invoke the 'pricesPlusTax' function, passing in the 'prices' array and a callback function (passing in 'totalCost' as a param) that will print "The new array plus tax = [totalCost]"
 */
-
+pricesPlusTax(prices, (totalCost) => {
+    console.log(`The new array plus tax =`, totalCost)
+})
 // CODE HERE
 
 
@@ -89,14 +98,22 @@ The inner function should run this logic: if the first number passing in is grea
 */
 
 // CODE HERE
-
+const multiplyingFactory = function(a){
+    return function(b){
+        if (a >= 5){
+            console.log(a * b)
+        } else {
+            console.log('The first number is smaller than 5')
+        }
+    }
+}
 
 /* 
 Let's invoke the 'multiplyingFactory' function that will return another function, and save it into a variable called 'timesFour.' Let's pass in number 3 as a param.
 */
 
 // CODE HERE
-
+const timesFour = multiplyingFactory(5)
 
 /* 
 Now, timesFour is the new function (the inner function that was being returned when we invoked 'multiplyingFactory' function). The number 3 that we passed in as a first number is now saved in the 'timesFour' function. 
@@ -107,7 +124,7 @@ Run the code in node to see the printed result. You should see "Cannot multiply:
 */
 
 // INVOKE 'timesFour' HERE
-
+timesFour(4)
 
 /* 
 Change the param for 'multiplyingFactory' invocation to number 5. Then invoke 'timesFour' again, passing in number 4. Run the code in node, and you should see 20.
